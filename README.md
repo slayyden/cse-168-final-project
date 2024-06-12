@@ -25,6 +25,9 @@ So, if we choose the target function to be something close to the outgoing light
 we get samples distributed similarly to unshadowed light contribution even though there is no way to directly 
 generate samples from a pdf that is proportional to unshadowed light contribution.
 
+With one candidate, ReSTIR is essentially the same as choosing a light uniformly randomly and choosing a point on it uniformly randomly. 
+As a result, I will sometimes refer to this case as disabling ReSTIR, even though it still uses much of the ReSTIR code path. 
+
 Preliminary result: 
 
 <img width="249" alt="image" src="https://github.com/slayyden/cse-168-final-project/assets/26509702/8920ef1b-d148-4e02-b986-7cc2f2369f8f">
@@ -36,7 +39,7 @@ The algorithm is deceptively simple, but a lot of "computational plumbing" had t
 If you store reservoirs at pixels, spatial reuse can only work for primary rays, which means you need to treat primary rays as an edge case when evaluating a path. 
 Additionally, just storing a reservoir as described in the literature is not enough. 
 You must also store extra information to reconstruct a path after sample reuse is done. 
-I ended up storing every primary ray as well and using its direction and intersectin position to generate the rest of the path. 
+I ended up storing every primary ray as well and using its direction and intersection position to generate the rest of the path. 
 
 # Experiment 1: Cornell Box (1 spp)
 ### 1 candidate sample per pixel: 
@@ -62,6 +65,7 @@ This is unbiased.
 
 ### 32 candidates per pixel:
 ![mis_32candidate](https://github.com/slayyden/cse-168-final-project/assets/26509702/732843f8-561c-4ef6-b02c-e2c9e4515911)
+Not much improvement.
 
 ### Spatial reuse introduces bias here (1 pass, kernel_radius = 15, num_neighbors = 1): 
 ![mis_spatialreuse](https://github.com/slayyden/cse-168-final-project/assets/26509702/18ffb32e-ced3-4686-8f45-1d4fb9f6098a)
@@ -73,7 +77,7 @@ This is unbiased.
 
 ### 32 candidates per pixel: 
 ![room_32candidate](https://github.com/slayyden/cse-168-final-project/assets/26509702/b415bf6c-b7d4-4350-9eec-a6cece6342a7)
-The details on the monkey become actually readable. 
+The details on the monkey become actually readable and some of the tiles less noisy.
 
 ### With Spatial reuse:
 ![room_spatialreuse](https://github.com/slayyden/cse-168-final-project/assets/26509702/9464a740-4d3e-470f-9f62-19159faa3969)
