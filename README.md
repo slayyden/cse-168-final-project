@@ -104,6 +104,7 @@ I sculpted this character in Blender. Here's what it looks like in Blender.
  - even at equal time, a we have more noise than we do with ReSTIR
  - in particular, ReSTIR resolves the eyes very well in compoarison
 
+
 # Bonus: Blender File Importer 
 I wrote a script using Blender's Python API to import Blender scenes into the class scenefile format. 
 It supports 
@@ -111,3 +112,17 @@ It supports
   - Polygons may have an arbitrary number of sides
 - Rectangular area lights
 - Diffuse, specular, and roughness parameters for Principled BSDF materials (Principled is Blender's primary physically based BSDF model)
+
+# Closing Thoughts 
+This code is not very optimized, but it seems that the majority of the runtime is taken up by filling up the reservoirs. 
+Tracing the path's rays and spatial reuse take little time in comparison. 
+There's probably some significant performance bottleneck I need to sort out. 
+
+Spatial reuse didn't do as much as I thought it would do in the scenes I tested. 
+Perhaps I need a scene with a lot of lights where each individual surface point is mostly affected by a handful of important lights.
+
+I decided to keep using my code, not any of the Embree/OptiX starter code and after working on this code base for over 10 weeks, 
+I'm pretty proud of what I've done. 
+While the ReSTIR part is not super optimized, the rest was written in a very performance conscious manner. 
+I learned a ton about performant programming, maintaining software, C++, and of course graphics over the course of this journey.
+
