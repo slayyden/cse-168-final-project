@@ -1,13 +1,13 @@
-# ReSTIR 
+# CSE 168 Final Project: ReSTIR Direct Lighting
+![cover](https://github.com/slayyden/cse-168-final-project/assets/26509702/ad28f383-a3f6-4b86-975c-62e9442e1f26)
 This project implements ReSTIR direct lighting. 
 It supports the following features
-+ Streaming RIS
-+ Spatial reuse
++ Streaming RIS (unbiased)
++ Spatial reuse (biased)
   - kernel is a square of arbitrary size
   - number of spatial neighbors chosen is customizable
   - any number of reuse passes can be done
-+ MIS with BSDF and NEE samples
-  - unbiased without spatial reuse
++ MIS with BSDF and NEE samples (unbiased)
 + Aribtrary number of samples per pixel 
 
 # streaming RIS 
