@@ -20,7 +20,7 @@ Streaming RIS a way to better sample lights.
 A number of candidate light samples are chosen (a light sample is not just a light, but a point on the surface of a light). 
 We put those samples in a reservoir and weigh them based on a target function. 
 The reservoir will give us a "good sample" out of the ones we put in. 
-The samples reservoirs spit out are approximately selected as if their PDF were the normalized target function.
+The samples reservoirs spit out are approximately selected as if their PDF were proportional to the target function.
 So, if we choose the target function to be something close to the outgoing light, such as unshadowed light contribution, 
 we get samples distributed similarly to unshadowed light contribution even though there is no way to directly 
 generate samples from a pdf that is proportional to unshadowed light contribution.
@@ -28,6 +28,15 @@ generate samples from a pdf that is proportional to unshadowed light contributio
 Preliminary result: 
 
 <img width="249" alt="image" src="https://github.com/slayyden/cse-168-final-project/assets/26509702/8920ef1b-d148-4e02-b986-7cc2f2369f8f">
+
+# Spatial Reuse 
+If we store a reservoir at each pixel, we can choose to combine each pixel's sample with its neighboring pixels' samples in a reservoir. 
+When done carefully, this leads to a massive amplification of the number of samples that can contribute to a pixel. 
+The algorithm is deceptively simple, but a lot of "computational plumbing" had to be done to implement it. 
+If you store reservoirs at pixels, spatial reuse can only work for primary rays, which means you need to treat primary rays as an edge case when evaluating a path. 
+Additionally, just storing a reservoir as described in the literature is not enough. 
+You must also store extra information to reconstruct a path after sample reuse is done. 
+I ended up storing every primary ray as well and using its direction and intersectin position to generate the rest of the path. 
 
 # Experiment 1: Cornell Box (1 spp)
 ### 1 candidate sample per pixel: 
