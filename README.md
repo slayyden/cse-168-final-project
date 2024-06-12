@@ -10,6 +10,11 @@ It supports the following features
 + MIS with BSDF and NEE samples (unbiased)
 + Aribtrary number of samples per pixel 
 
+Implementation Details 
++ The target function does not include a visibility term, but a visibility pass is done before reservoirs are finalized
++ To convert the vector valued BRDF function to a scalar to be used in a target function, the channel values are averaged
++ Spatial reuse is done with uniform MIS weights, which does lead to bias
+
 # streaming RIS 
 Preliminary result: 
 
