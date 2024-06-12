@@ -16,6 +16,15 @@ Implementation Details
 + Spatial reuse is done with uniform MIS weights, which does lead to bias
 
 # streaming RIS 
+Streaming RIS a way to better sample lights. 
+A number of candidate light samples are chosen (a light sample is not just a light, but a point on the surface of a light). 
+We put those samples in a reservoir and weigh them based on a target function. 
+The reservoir will give us a "good sample" out of the ones we put in. 
+The samples reservoirs spit out are approximately selected as if their PDF were the normalized target function.
+So, if we choose the target function to be something close to the outgoing light, such as unshadowed light contribution, 
+we get samples distributed similarly to unshadowed light contribution even though there is no way to directly 
+generate samples from a pdf that is proportional to unshadowed light contribution.
+
 Preliminary result: 
 
 <img width="249" alt="image" src="https://github.com/slayyden/cse-168-final-project/assets/26509702/8920ef1b-d148-4e02-b986-7cc2f2369f8f">
@@ -57,6 +66,7 @@ This is unbiased.
 ![room_32candidate](https://github.com/slayyden/cse-168-final-project/assets/26509702/b415bf6c-b7d4-4350-9eec-a6cece6342a7)
 The details on the monkey become actually readable. 
 
+### With Spatial reuse:
 ![room_spatialreuse](https://github.com/slayyden/cse-168-final-project/assets/26509702/9464a740-4d3e-470f-9f62-19159faa3969)
 Some patches on the monkey clear up.
 
@@ -76,7 +86,7 @@ I sculpted this character in Blender. Here's what it looks like in Blender.
 ### 32 candidates + Spatial reuse (22991 ms):
 ![maven_spatialreuse](https://github.com/slayyden/cse-168-final-project/assets/26509702/c2a4c7ed-84b3-4a5b-a919-7f41562b64c6)
 - once again spatial reuse doesn't do much :P
-### With 1 canddiate, but 10spp (20011):
+### With 1 canddiate, but 10spp (20011 ms):
 ![maven_1candidate_10spp](https://github.com/slayyden/cse-168-final-project/assets/26509702/fdac8adf-0826-4d1d-82e1-319b34afe07f)
  - even at equal time, a we have more noise than we do with ReSTIR
  - in particular, ReSTIR resolves the eyes very well in compoarison
