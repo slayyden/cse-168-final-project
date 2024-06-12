@@ -75,3 +75,11 @@ I sculpted this character in Blender. Here's what it looks like in Blender.
 ![maven_1candidate_10spp](https://github.com/slayyden/cse-168-final-project/assets/26509702/fdac8adf-0826-4d1d-82e1-319b34afe07f)
  - even at equal time, a we have more noise than we do with ReSTIR
  - in particular, ReSTIR resolves the eyes very well in compoarison
+
+# Bonus: Blender File Importer 
+I wrote a script using Blender's Python API to import Blender scenes into the class scenefile format. 
+It supports 
+- Polygonal meshes with any location, rotation, and scale
+  - Polygons may have an arbitrary number of sides
+- Rectangular area lights
+- Diffuse, specular, and roughness parameters for Principled BSDF materials (Principled is Blender's primary physically based BSDF model)
